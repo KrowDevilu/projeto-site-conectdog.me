@@ -21,6 +21,9 @@ aside img {
     width: 450px;
     height: 281px;
 }
+p{
+    word-wrap: break-word;
+}
 
 .pet-infos {
     background-color: #FFE08F;

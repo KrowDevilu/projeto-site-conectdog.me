@@ -14,11 +14,13 @@ body {
 }
 
 .animaisSelecao {
+    background-image: url("http://localhost:8081/assets/img/background.jpg");
+    background-repeat:repeat;
     grid-area: animaisSelecao;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgb(240, 215, 107);
+    /* background-color: rgb(240, 215, 107); */
 }
 
 h1 {

@@ -100,24 +100,26 @@ footer{
 }
 
 .blocoredes{
-
+    border-radius: 10px;
     display: flex;
     width: 85%;
     align-items: center;
     justify-content: space-around;
     background-color: #faea7f;;
 
-  
+    background-image: url("http://localhost:8081/assets/img/background2.jpg");
+    background-repeat:repeat;
 }
 
 .boxmail{
-
+    border-radius: 10px;
     display: flex;
     width: 85%;
     align-items: center;
     justify-content: center;
     background-color: #faea7f;
-
+    background-image: url("http://localhost:8081/assets/img/background2.jpg");
+    background-repeat:repeat;
 }   
 
 .redes p {
@@ -151,7 +153,7 @@ margin-left: 15px;
 
 
 .boxtel{
-
+    border-radius: 10px;
     
     display: flex;
     width: 85%;
@@ -159,7 +161,8 @@ margin-left: 15px;
     justify-content: center;
     background-color: #faea7f;
     margin-bottom: 10px;
-
+    background-image: url("http://localhost:8081/assets/img/background2.jpg");
+    background-repeat:repeat;
 
 }
 
@@ -188,6 +191,8 @@ margin-left: 15px;
     
     
 .blocoredes{
+    background-image: url("http://localhost:8081/assets/img/background2.jpg");
+    background-repeat:repeat;
     display: block;
     width: 100%;
     margin-left: auto;

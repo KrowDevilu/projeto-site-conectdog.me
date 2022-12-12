@@ -2,6 +2,8 @@ body{
     display: flex;
     justify-content: center;
     text-align: center;
+    background-image: url("http://localhost:8081/assets/img/background.jpg");
+    background-repeat:repeat;
 }
 h1 ,h2{
     color: #3267A6;
