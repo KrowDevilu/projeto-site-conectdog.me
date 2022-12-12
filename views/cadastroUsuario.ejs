@@ -5,18 +5,59 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar-se</title>
+    <link rel="stylesheet" href="/assets/css/cadastro.css">
+    <link rel="stylesheet" href="/assets/css/general.css">
 </head>
 <body>
-    <form action="/register" method="post">
-        <h2>Nome do usuário:</h2>
-        <input type="text" name="nome">
-        <h2>Email do usuário:</h2>
-        <input type="email" name="email">
-        <h2>Senha do usuário:</h2>
-        <input type="password" name="senha">
-        <h2>Confirmar Senha:</h2>
-        <input type="password" name="senhaConfirm">
-        <button type="submit">Cadastrar-se</button>
-    </form>
+    <div class="box">
+        <img src="http://localhost:8081/assets/img/logo.png" alt="logo" class="logo">
+        <header>
+            <ul>
+                <li><a href="/inicio">Home</a></li>
+                <li><a href="/Doacoes/Cartao">Doações</a></li>
+                <li><a href="/pesquisa">Pets</a></li>
+                <li><a href="/sobrenos">Sobre Nós</a></li>
+                <li><a href="/contato">Contato</a></li>
+                <li><a href="/Noticias">Notícias e Dicas</a></li>
+                <div class="nav_buttons">
+                    <a href="/loginUsuario"><button class="login ">Login</button></a>
+                    <a><Button class="cadastro ">Cadastre-se</Button></a>
+                </div>
+            </ul>
+        </header>
+        <main>
+            <article>Cadastre-se</article>
+                <form action="/register" method="post">
+                    <h2>Nome do usuário:</h2>
+                    <input type="text" name="nome">
+                    <h2>Email do usuário:</h2>
+                    <input type="email" name="email">
+                    <h2>Senha do usuário:</h2>
+                    <input type="password" name="senha">
+                    <h2>Confirmar Senha:</h2>
+                    <input type="password" name="senhaConfirm">
+                    <button type="submit" class="envia">Cadastrar-se</button>
+                </form>
+        </main>
+        <div class="hamburger-menu">
+            <input id="menu__toggle" type="checkbox" />
+            <label class="menu__btn" for="menu__toggle">
+              <span></span>
+            </label>
+
+            <ul class="menu__box">
+                <li><a class="menu__item" href="/inicio">Home</a></li>
+                <li><a class="menu__item" href="/Doacoes/Cartao">Doações</a></li>
+                <li><a class="menu__item" href="/pesquisa">Pets</a></li>
+                <li><a class="menu__item" href="/sobrenos">Sobre Nós</a></li>
+                <li><a class="menu__item" href="/contato">Contato</a></li>
+                <li><a class="menu__item" href="/noticias">Notícias e Dicas</a></li>
+                <li>
+                    <div class="mob-logo"><img src="http://localhost:8081/assets/img/logo.png" alt="logo"></div>
+                </li>
+            </ul>
+            <div class="menu_shadow"></div>
+        </div>
+    </div>
 </body>
 </html>

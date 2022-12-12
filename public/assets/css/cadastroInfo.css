@@ -1,0 +1,36 @@
+body{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+h1 ,h2{
+    color: #3267A6;
+}
+input{
+ width: 100%;
+}
+textarea{
+    width: 100%;
+    height: 80%;
+}
+.envia {
+    margin-top: 2em;
+    border-radius: 5px;
+    border: none;
+    padding: 0 2em;
+    height: 2em;
+    font-size: 15px;
+    font-weight: 900;
+    background-color: #FFD056;
+    color: #AD7766;
+    transition: 0.5s;
+}
+
+.envia:hover {
+    background-color: #C07A53;
+    color: #F2D4C7;
+}
+.petHistoric{
+    width: 100%;
+    height: 50%;
+}

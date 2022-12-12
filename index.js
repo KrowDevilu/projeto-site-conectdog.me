@@ -44,7 +44,7 @@ app.get('/cadastroUsuario',function(req,res){
 })
 app.post('/register',async function(req,res){
     await client.connect();
-    const emailExists = await client.db("myProject").collection("Usuarios").findOne({'email': req.body.email})
+    const emailExists = await client.db("conectdog").collection("Usuarios").findOne({'email': req.body.email})
     console.log(emailExists)
     if(req.body.senha !== req.body.senhaConfirm){
         res.send("As senhas não batem!")
@@ -82,7 +82,7 @@ app.post('/login',async function(req,res){
     logged = false
     try {
         await client.connect();
-        const userExist = await client.db("myProject").collection("Usuarios").findOne({'email': req.body.email})
+        const userExist = await client.db("conectdog").collection("Usuarios").findOne({'email': req.body.email})
         if(userExist !== null){
             if(await bcrypt.compare(req.body.senha , userExist.senha)){
                 logged = true
@@ -109,49 +109,28 @@ app.get('/logout',function(req,res){
 
 
 async function addUser(client, newListing){
-    const result = await client.db("myProject").collection("Usuarios").insertOne(newListing);
+    const result = await client.db("conectdog").collection("Usuarios").insertOne(newListing);
     console.log(`Novo usuario criado com o seguinte id: ${result.insertedId}`);
 }
 async function addPet(client, newListing){
-    const result = await client.db("myProject").collection("Pets").insertOne(newListing);
+    const result = await client.db("conectdog").collection("Pets").insertOne(newListing);
     console.log(`New listing created with the following id: ${result.insertedId}`);
 }
 async function adoptPet(client, newListing){
-    const result = await client.db("myProject").collection("AdoptPets").insertOne(newListing);
+    const result = await client.db("conectdog").collection("AdoptPets").insertOne(newListing);
     console.log(`New listing created with the following id: ${result.insertedId}`);
 }
 async function addNoticia(client, newListing){
-    const result = await client.db("myProject").collection("Noticias").insertOne(newListing);
+    const result = await client.db("conectdog").collection("Noticias").insertOne(newListing);
 }
 async function addDica(client, newListing){
-    const result = await client.db("myProject").collection("Dicas").insertOne(newListing);
+    const result = await client.db("conectdog").collection("Dicas").insertOne(newListing);
 }
 async function addComment(client, newListing){
-    const result = await client.db("myProject").collection("Comentarios").insertOne(newListing);
-}
-async function createListing(client, newListing){
-    const result = await client.db("myProject").collection("testeCollection").insertOne(newListing);
-    console.log(`New listing created with the following id: ${result.insertedId}`);
-}
-async function findOneListingByName(client, nameOfListing) {
-    const result = await client.db("myProject").collection("testeCollection").findOne({ name: nameOfListing });
-
-    if (result) {
-        console.log(`Found a listing in the collection with the name '${nameOfListing}':`);
-        console.log(result);
-    } else {
-        console.log(`No listings found with the name '${nameOfListing}'`);
-    }
+    const result = await client.db("conectdog").collection("Comentarios").insertOne(newListing);
 }
 
 
-
-async function listDatabases(client){
-    databasesList = await client.db().admin().listDatabases();
- 
-    console.log("Databases:");
-    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
-};
 app.get('/',function(req,res){
     res.redirect('/inicio')
 })
@@ -160,8 +139,8 @@ app.get('/perfil',async function(req,res){
         try {
             await client.connect();
             var o_id = new mongodb.ObjectID(user._id);
-            const pets = await client.db("myProject").collection("AdoptPets").find({'AdoptedBy':o_id}).toArray()
-            const arrecadacao = await client.db("myProject").collection("Arrecadacao").findOne({'_id':new mongodb.ObjectId('639725dc7b0ec6b6eb1a0831')})
+            const pets = await client.db("conectdog").collection("AdoptPets").find({'AdoptedBy':o_id}).toArray()
+            const arrecadacao = await client.db("conectdog").collection("Arrecadacao").findOne({'_id':new mongodb.ObjectId('6397a0a24c00ea128ededadb')})
             res.render("perfil.ejs",{user: user,Session: inSession,pets: pets,arrecadado: arrecadacao})
         } catch (e) {
             console.error(e);
@@ -170,37 +149,32 @@ app.get('/perfil',async function(req,res){
             await client.close();
         }
     }else{
-        res.render("perfil.ejs",{user: user,Session: inSession})
+        res.redirect('/loginUsuario')
     }
 })
 app.get('/upar',function(req,res){
     res.render('upar.ejs')
 })
-app.get('/pics',async function(req,res){
-    try {
-        await client.connect();
-        const result = await client.db("myProject").collection("imagens").find().toArray()
-        console.log(result)
-        res.render('pics.ejs',{pictures: result})
-    } catch (e) {
-        console.error(e);
-    }
-    finally {
-        await client.close();
-    }
-})
 
 app.post('/upload', upload.single('file'), async function (req, res, next) { 
     // req.file is the `avatar` file
     // req.body will hold the text fields, if there were any
-         if (req.file == null) {
-        // If Submit was accidentally clicked with no file selected...
-        } else { 
+      
             try {
                 await client.connect();
-                
-                // this landing will give you any option of file information that you can collect
-                console.log('landing here', req.file)
+                if (req.file == null) {
+                    await addPet(client,
+                        {
+                            nome: req.body.nome,
+                            peso: req.body.peso,
+                            altura: req.body.altura,
+                            historia: req.body.historia,
+                            especie: req.body.especie,
+                            sexo: req.body.sexo,
+                            path: req.file.path,
+                            fileName: null
+                        })
+                    } else { 
                 await addPet(client,
                     {
                         nome: req.body.nome,
@@ -211,20 +185,20 @@ app.post('/upload', upload.single('file'), async function (req, res, next) {
                         sexo: req.body.sexo,
                         path: req.file.path,
                         fileName: req.file.filename
-                    })
+                    })}
             } catch (e) {
                 console.error(e);
             }
             finally {
                 await client.close();
                 res.redirect('/')
-            }
+            
      }});
 
 app.get('/pesquisa',async function(req,res){
     try {
         await client.connect();
-        const result = await client.db("myProject").collection("Pets").find().toArray()
+        const result = await client.db("conectdog").collection("Pets").find().toArray()
         console.log(result)
         res.render('pesquisaPets.ejs',{pets: result})
     } catch (e) {
@@ -238,7 +212,7 @@ app.get('/pesquisa',async function(req,res){
 app.get('/pesquisa/:filtro',async function(req,res){
     try {
         await client.connect();
-        const result = await client.db("myProject").collection("Pets").find({'especie': req.params.filtro}).toArray()
+        const result = await client.db("conectdog").collection("Pets").find({'especie': req.params.filtro}).toArray()
         console.log(result)
         res.render('pesquisaPets.ejs',{pets: result})
     } catch (e) {
@@ -252,7 +226,7 @@ app.get('/pets/:id',async function(req,res){
     try {
         await client.connect();
         var o_id = new mongodb.ObjectID(req.params.id);
-        const result = await client.db("myProject").collection("Pets").findOne({ '_id': o_id });
+        const result = await client.db("conectdog").collection("Pets").findOne({ '_id': o_id });
         console.log(result)
         res.render('petInfo.ejs',{pet: result})
     } catch (e) {
@@ -265,7 +239,7 @@ app.get('/pets/:id',async function(req,res){
 app.get('/noticias',async function(req,res){
     try {
         await client.connect();
-        const result = await client.db("myProject").collection("Noticias").find().toArray()
+        const result = await client.db("conectdog").collection("Noticias").find().toArray()
         res.render('noticias.ejs',{noticias: result,Session:inSession,user:user})
     } catch (e) {
         console.error(e);
@@ -278,8 +252,8 @@ app.get('/noticia/:id',async function(req,res){
     try {
         await client.connect();
         var o_id = new mongodb.ObjectID(req.params.id);
-        const result = await client.db("myProject").collection("Noticias").findOne({ '_id': o_id });
-        const comments = await client.db("myProject").collection("Comentarios").find({'from': req.params.id}).toArray()
+        const result = await client.db("conectdog").collection("Noticias").findOne({ '_id': o_id });
+        const comments = await client.db("conectdog").collection("Comentarios").find({'from': req.params.id}).toArray()
         res.render('page.ejs',{page: result, tipo:'noticia',comentarios: comments,Session: inSession,user: user})
     } catch (e) {
         console.error(e);
@@ -291,7 +265,7 @@ app.get('/noticia/:id',async function(req,res){
 app.get('/dicas',async function(req,res){
     try {
         await client.connect();
-        const result = await client.db("myProject").collection("Dicas").find().toArray()
+        const result = await client.db("conectdog").collection("Dicas").find().toArray()
         console.log(result)
         res.render('dicas.ejs',{dicas: result,Session:inSession,user:user})
     } catch (e) {
@@ -311,8 +285,8 @@ app.get('/dica/:id',async function(req,res){
     try {
         await client.connect();
         var o_id = new mongodb.ObjectId(req.params.id);
-        const result = await client.db("myProject").collection("Dicas").findOne({'_id':o_id})
-        const comments = await client.db("myProject").collection("Comentarios").find({'from': req.params.id}).toArray()
+        const result = await client.db("conectdog").collection("Dicas").findOne({'_id':o_id})
+        const comments = await client.db("conectdog").collection("Comentarios").find({'from': req.params.id}).toArray()
         res.render('informativo.ejs',{page: result, tipo:"dica",comentarios: comments,Session: inSession,user: user})
         
     } catch (e) {
@@ -327,12 +301,12 @@ app.get('/informativos/:sessao/:id',async function(req,res){
         await client.connect();
         var result = null;
         if(req.params.sessao == "Noticias")
-            result = await client.db("myProject").collection("Noticias").findOne({'pk_id':req.params.id});
+            result = await client.db("conectdog").collection("Noticias").findOne({'pk_id':req.params.id});
         else{
-            result = await client.db("myProject").collection("Dicas").findOne({'pk_id':req.params.id});
+            result = await client.db("conectdog").collection("Dicas").findOne({'pk_id':req.params.id});
         }
         console.log(result)
-        const comments = await client.db("myProject").collection("Comentarios").find({'from':req.params.id}).toArray()
+        const comments = await client.db("conectdog").collection("Comentarios").find({'from':req.params.id}).toArray()
         res.render('informativo.ejs',{page:result,tipo:req.params.sessao,comentarios:comments,Session: inSession,user: user});
     }catch(e){
         console.error(e);
@@ -341,19 +315,26 @@ app.get('/informativos/:sessao/:id',async function(req,res){
     }
 })
 app.post("/addNoticia",upload.single('file'),async function(req,res){
-	if (req.file == null){
-        res.redirect('/')
-    }else{
+
         try {
             await client.connect();
-            await addNoticia(client,
+            if (req.file == null){
+                await addNoticia(client,
+                    {
+                        titulo: req.body.titulo,
+                        conteudo: req.body.conteudo,
+                        imagem: null,
+                        pk_id: `Noticias${Date.now()}`
+                    });
+            }else{
+                await addNoticia(client,
                 {
                     titulo: req.body.titulo,
                     conteudo: req.body.conteudo,
                     imagem: req.file.filename,
                     pk_id: `Noticias${Date.now()}`
                 }
-            );       
+            );   }    
         } catch (e) {
             console.error(e);
         }
@@ -361,15 +342,20 @@ app.post("/addNoticia",upload.single('file'),async function(req,res){
             await client.close();
             res.redirect('/')
         }
-    }
+    
 })
 app.post("/addDica",upload.single('file'),async function(req,res){
-	if (req.file == null){
-        res.redirect('/')
-        console.log('não tem imagem bro')
-    }else{
         try {
             await client.connect();
+            if (req.file == null){
+                await addDica(client,
+                    {
+                        titulo: req.body.titulo,
+                        conteudo: req.body.conteudo,
+                        imagem: null,
+                        pk_id: `Dicas${Date.now()}`
+                    });
+            }else{
             await addDica(client,
                 {
                     titulo: req.body.titulo,
@@ -377,7 +363,7 @@ app.post("/addDica",upload.single('file'),async function(req,res){
                     imagem: req.file.filename,
                     pk_id: `Dicas${Date.now()}`
                 }
-            );       
+            );     }  
         } catch (e) {
             console.error(e);
         }
@@ -385,14 +371,14 @@ app.post("/addDica",upload.single('file'),async function(req,res){
             await client.close();
             res.redirect('/')
         }
-    }
+    
 })
 app.get('/inicio',async function(req,res){
     try {
         await client.connect();
-        const noticias = await client.db("myProject").collection("Noticias").find().toArray()
-        const dicas = await client.db("myProject").collection("Dicas").find().toArray()
-        const pets = await client.db("myProject").collection("Pets").find().toArray()
+        const noticias = await client.db("conectdog").collection("Noticias").find().toArray()
+        const dicas = await client.db("conectdog").collection("Dicas").find().toArray()
+        const pets = await client.db("conectdog").collection("Pets").find().toArray()
         res.render('inicio.ejs',{dicas: dicas,noticias: noticias,pets: pets})
     } catch (e) {
         console.error(e);
@@ -406,18 +392,18 @@ app.get('/adotar/:id',async function(req,res){
         try {
             await client.connect();
             var o_id = new mongodb.ObjectID(req.params.id);
-            const PET = await client.db("myProject").collection("Pets").findOne({'_id':o_id})
+            const PET = await client.db("conectdog").collection("Pets").findOne({'_id':o_id})
             if(user.adopted == false){
                 var u_id = new mongodb.ObjectID(user._id);
-                await client.db("myProject").collection("Usuarios").updateOne({'_id':u_id},{$set: {'adopted':true}})
-                user = await client.db("myProject").collection("Usuarios").findOne({'_id':u_id})
+                await client.db("conectdog").collection("Usuarios").updateOne({'_id':u_id},{$set: {'adopted':true}})
+                user = await client.db("conectdog").collection("Usuarios").findOne({'_id':u_id})
             }
             await adoptPet(client,{
                         nome: PET.nome,
                         fileName: PET.fileName,
                         AdoptedBy: user._id
             });
-            await client.db("myProject").collection("Pets").deleteOne({'_id':o_id})
+            await client.db("conectdog").collection("Pets").deleteOne({'_id':o_id})
         } catch (e) {
             console.error(e);
         }
@@ -460,7 +446,7 @@ app.get('/deleteCom/:infoId/:sessao/:id',async function(req,res){
         try {
             await client.connect();
             var o_id = new mongodb.ObjectId(req.params.id)
-            await client.db("myProject").collection("Comentarios").deleteOne({'_id':o_id})
+            await client.db("conectdog").collection("Comentarios").deleteOne({'_id':o_id})
         } catch (e) {
             console.error(e);
         }
@@ -483,10 +469,10 @@ app.post('/doar',async function(req,res){
         && req.body.mes > 0 && req.body.mes <= 12 && req.body.ano > 2022 && req.body.cvv.length == 3){
             try{
                 await client.connect();
-                const result = await client.db("myProject").collection("Arrecadacao").findOne({'_id':new mongodb.ObjectId('639725dc7b0ec6b6eb1a0831')})
-                await client.db("myProject").collection("Arrecadacao").updateOne({'_id':new mongodb.ObjectId('639725dc7b0ec6b6eb1a0831')},{$set: {'vezesDoadas':result.vezesDoadas + 1,'totalArrecadado': result.totalArrecadado + (mongodb.Int32)(req.body.valorDoado)}})
-                await client.db("myProject").collection("Usuarios").updateOne({'_id':user._id},{$set: {'vezesDoadas':user.vezesDoadas + 1,'quantidadeDoada':user.quantidadeDoada + (mongodb.Int32)(req.body.valorDoado)}})
-                user = await client.db("myProject").collection("Usuarios").findOne({'_id':user._id})
+                const result = await client.db("conectdog").collection("Arrecadacao").findOne({'_id':new mongodb.ObjectId('639725dc7b0ec6b6eb1a0831')})
+                await client.db("conectdog").collection("Arrecadacao").updateOne({'_id':new mongodb.ObjectId('639725dc7b0ec6b6eb1a0831')},{$set: {'vezesDoadas':result.vezesDoadas + 1,'totalArrecadado': result.totalArrecadado + (mongodb.Int32)(req.body.valorDoado)}})
+                await client.db("conectdog").collection("Usuarios").updateOne({'_id':user._id},{$set: {'vezesDoadas':user.vezesDoadas + 1,'quantidadeDoada':user.quantidadeDoada + (mongodb.Int32)(req.body.valorDoado)}})
+                user = await client.db("conectdog").collection("Usuarios").findOne({'_id':user._id})
                 console.log("foi")
             }catch(e){
                 console.error(e)
@@ -507,7 +493,7 @@ app.get('/deleteInfo/:sessao/:id',async function(req,res){
     try {
         await client.connect();
         var o_id = new mongodb.ObjectId(req.params.id)
-        await client.db("myProject").collection(req.params.sessao).deleteOne({'_id':o_id})
+        await client.db("conectdog").collection(req.params.sessao).deleteOne({'_id':o_id})
     } catch (e) {
         console.error(e);
     }

@@ -34,7 +34,7 @@ button{
 }
 .imginfo{
     height: 400px;
-    
+    margin-top: 5em;
 }
 .info{
     display: flex;
@@ -60,4 +60,7 @@ button:hover{
 }
 .deleteCom{
     margin-left:80%;
+}
+.conteudo{
+    margin-right: 17em;
 }

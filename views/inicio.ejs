@@ -23,8 +23,9 @@
                 <li><a href="/contato">Contato</a></li>
                 <li><a href="/noticias">Notícias e Dicas</a></li>
                 <div class="nav_buttons">
-                    <a href="Login/pag5.html"><button class="login ">Login</button></a>
-                    <a href="Cadastro/cadastro.html"><Button class="cadastro ">Cadastre-se</Button></a>
+                    <a href="/loginUsuario"><button class="login ">Login</button></a>
+                    <a href="/cadastroUsuario"><Button class="cadastro ">Cadastre-se</Button></a>
+                    <a href="/perfil"><button class="perfil">Perfil</button></a>
                 </div>
             </ul>
         </header>
@@ -54,7 +55,7 @@
             <div class="noticiasBox">
                 <% for(var i = 0; i< 3 && i< noticias.length; i++) { %>
                 <article class="noticia<%= i+1 %>">
-                    <p><%= noticias[i].conteudo.substring(0,200) %></p>
+                    <p><%= noticias[i].conteudo.substring(0,200)+ "..." %></p>
                 </article>
                 <% } %>
             </div>
@@ -64,7 +65,7 @@
             <div class="dicasBox">
                 <% for(var i = 0; i< 3 && i< dicas.length; i++) { %>
                     <article class="dica<%= i+1 %>">
-                        <p><%= dicas[i].conteudo.substring(0,200) %></p>
+                        <p><%= dicas[i].conteudo.substring(0,200)+ "..." %></p>
                     </article>
                     <% } %>
             </div>
@@ -82,14 +83,14 @@
             </label>
 
             <ul class="menu__box">
-                <li><a class="menu__item" href="">Home</a></li>
-                <li><a class="menu__item" href="Doações/cartão/index.html">Doações</a></li>
-                <li><a class="menu__item" href="Página 2/pag2.html">Pets</a></li>
-                <li><a class="menu__item" href="Sobre nós/index.html">Sobre Nós</a></li>
-                <li><a class="menu__item" href="Contato/contato.html">Contato</a></li>
-                <li><a class="menu__item" href="Noticias e dicas/noticias/index.html">Notícias e Dicas</a></li>
+                <li><a class="menu__item" href="/inicio">Home</a></li>
+                <li><a class="menu__item" href="/Doacoes/Cartao">Doações</a></li>
+                <li><a class="menu__item" href="/pesquisa">Pets</a></li>
+                <li><a class="menu__item" href="/sobrenos">Sobre Nós</a></li>
+                <li><a class="menu__item" href="/contato">Contato</a></li>
+                <li><a class="menu__item" href="/noticias">Notícias e Dicas</a></li>
                 <li>
-                    <div class="mob-logo"><img src="logo.png" alt=""></div>
+                    <div class="mob-logo"><img src="http://localhost:8081/assets/img/logo.png" alt="logo"></div>
                 </li>
             </ul>
             <div class="menu_shadow"></div>
