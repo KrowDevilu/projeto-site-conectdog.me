@@ -35,7 +35,7 @@
                     <input type="radio" name="radio-btn" id="img-<%= i+1 %>" checked />
                     <li class="slide-container">
                         <div class="slide">
-                            <img src="/uploads/<%= pets[i].fileName %>" />
+                            <img src="http://localhost:8081/<%=pets[i].fileName%>" alt=""/>
                         </div>
                         <!-- <div class="nav">
                             <label for="img-3" class="prev">&#x2039;</label>
@@ -65,7 +65,7 @@
             <div class="dicasBox">
                 <% for(var i = 0; i< 3 && i< dicas.length; i++) { %>
                     <article class="dica<%= i+1 %>">
-                        <p><%= dicas[i].conteudo.substring(0,200)+ "..." %></p>
+                        <p><%= dicas[i].conteudo.substring(0,200)+"..." %></p>
                     </article>
                     <% } %>
             </div>
