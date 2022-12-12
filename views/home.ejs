@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <% if(Session == true) { %>
+        <h1>Olá <%= user.nome %>!</h1>
+        <hr>
+    <% } %>
+    <a href="/cadastroUsuario"><button>Cadastrar-se</button></a>
+    <a href="/loginUsuario"><button>Logar-se</button></a>
+    <% if(Session == true) { %>
+        <a href="/logout"><button>Deslogar-se</button></a>
+        <% if(user.admin == true || user.afiliated == true) { %>
+            <hr>
+            <a href="/upar"><button>add pet</button></a>
+        <% } %>
+        <% if(user.admin == true) { %>
+            <a href="/cadastroNoticia"><button>Criar Noticia</button></a>
+            <a href="/cadastroDica"><button>Criar Dica</button></a>
+        <% } %>
+    <% } %>
+    <hr>
+    <a href="/pesquisa"><button>Pesquisa de Pets</button></a>
+    <a href="/noticias"><button>Noticias</button></a>
+    <a href="/dicas"><button>Dicas</button></a>
+    <a href="/inicio"><button>Inicio</button></a>
+    <% if(Session == true && user.adopted == true) { %>
+        <% for(var i = 0; i< pets.length;i++) { %>
+            <div>
+                <h3><%= pets[i].nome %></h3>
+                <img src="http://localhost:8081/<%=pets[i].fileName%>" style="height: 200px;">
+                <p><%= pets[i].data %></p>
+            </div>
+        <% } %>        
+    <% } %>
+</body>
+</html>

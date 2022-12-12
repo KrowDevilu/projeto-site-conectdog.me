@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload</title>
+</head>
+<body>
+    <h2>Upload de Arquivos</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <h2 for="nome">Insira o nome do pet: </h2>
+        <input type="text" name="nome">
+        <h2 for="historia">Insira a "história" dele</h2>
+        <textarea name="historia" cols="30" rows="10"></textarea>
+        <h2 for="peso">Insira o peso</h2>
+        <input type="number" name="peso">
+        <h2 for="altura">Insira a altura</h2>
+        <input type="text" name="altura">
+        <h2>Insira a foto</h2>
+        <input type="file" name="file">
+        <h2>Tipo</h2>
+        <select name="especie">
+            <option value="gato">Gato</option>
+            <option value="cachorro">Cachorro</option>
+            <option value="passaro">Pássaro</option>
+        </select>
+        <h2>Sexo</h2>
+        <select name="sexo">
+            <option value="Fêmea">Fêmea</option>
+            <option value="Macho">Macho</option>
+        </select>
+        <input type="submit" name="submit">
+    </form>
+</body>
+</html>

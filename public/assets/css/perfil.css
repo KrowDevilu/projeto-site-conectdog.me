@@ -1,0 +1,33 @@
+.content{
+    margin-top: 80px;
+}
+h1, h3{
+    font-family: sans-serif;
+    color: #0e6bcf;
+    
+    margin-left: 60px;
+}
+p{
+    font-family: sans-serif;
+    color: #494949;
+    margin-left: 90px;
+}
+.btns{
+    margin-left:60px;
+}
+button{
+    border-radius: 5px;
+    border: none;
+    padding: 0 2em;
+    height: 2em;
+    font-size: 15px;
+    font-weight: 900;
+    background-color: #FFD056;
+    color: #AD7766;
+    transition: 0.5s;
+}
+
+button:hover{
+    background-color: #C07A53;
+    color: #F2D4C7;
+}

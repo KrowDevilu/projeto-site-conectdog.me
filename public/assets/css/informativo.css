@@ -1,0 +1,63 @@
+.content{
+    margin-top: 80px;
+}
+h1, h2{
+    font-family: sans-serif;
+    color: #0e6bcf;
+    
+    margin-left: 60px;
+}
+p{
+    word-wrap: break-word;
+    font-family: sans-serif;
+    color: #494949;
+    margin-left: 90px;
+}
+ul li p{
+    font-family: sans-serif;
+    color: #494949;
+    margin-left: 90px;
+}
+.btns{
+    margin-left:60px;
+}
+button{
+    border-radius: 5px;
+    border: none;
+    padding: 0 2em;
+    height: 2em;
+    font-size: 15px;
+    font-weight: 900;
+    background-color: #FFD056;
+    color: #AD7766;
+    transition: 0.5s;
+}
+.imginfo{
+    height: 400px;
+    
+}
+.info{
+    display: flex;
+    justify-content:space-between;
+}
+input{
+    width: 50%;
+    margin-left: 60px;
+    height: 1.6em;
+}
+.commentSection{
+    margin-left: 90px;
+    margin-right: 90px;
+    color: #C07A53;
+}.commentSection li{
+    list-style: none;
+    color: #494949;
+    margin-left: 20px;
+}
+button:hover{
+    background-color: #C07A53;
+    color: #F2D4C7;
+}
+.deleteCom{
+    margin-left:80%;
+}

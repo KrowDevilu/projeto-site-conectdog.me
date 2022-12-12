@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= page.titulo %></title>
+    <link rel="stylesheet" href="/assets/general.css">
+</head>
+<body>
+    <div class="box">
+        <img src="logo.png" alt="logo" class="logo">
+        <header>
+            <ul>
+                <li><a class="selected_nav">Home</a></li>
+                <li><a href="Doações/cartão/index.html">Doações</a></li>
+                <li><a href="/pesquisa">Pets</a></li>
+                <li><a href="Sobre nós/index.html">Sobre Nós</a></li>
+                <li><a href="Contato/contato.html">Contato</a></li>
+                <li><a href="/noticias">Notícias e Dicas</a></li>
+                <div class="nav_buttons">
+                    <a href="Login/pag5.html"><button class="login ">Login</button></a>
+                    <a href="Cadastro/cadastro.html"><Button class="cadastro ">Cadastre-se</Button></a>
+                </div>
+            </ul>
+        </header>
+        <div style="margin-top: 100px;">
+            <h1><%= page.titulo %></h1>
+            <p><%= page.conteudo %></p>
+            <img src="http://localhost:8081/<%= page.imagem %>">
+        </div>
+        <div>
+            <h2>Comentários</h2>
+            <form action="/comentar/<%= tipo %>/<%= page._id %>" method="post">
+                <input type="text" name="conteudo">
+                <button type="submit">Comentar</button>
+            </form>
+            <ul>
+                <% for(var i = 0; i< comentarios.length;i++) { %>
+                    <h3><%=comentarios[i].userName%></h3>
+                    <li><%=comentarios[i].conteudo%></li>   
+                    <% if(Session == true && user._id.toString() == comentarios[i].commentedBy.toString()) { %>
+                        <a href="/deleteCom/<%= page._id%>/<%=tipo%>/<%=comentarios[i]._id%>">
+                            <button>Deletar Comentário</button>
+                       </a>
+                    <% } %>
+                    <hr>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

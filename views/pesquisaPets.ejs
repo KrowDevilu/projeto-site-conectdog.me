@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/pesquisa.css">
+    <link rel="stylesheet" href="/assets/css/general.css">
+    <title>Pets</title>
+</head>
+
+<body>
+    <div class="box">
+        <img src="http://localhost:8081/assets/img/logo.png" alt="logo" class="logo">
+        <header>
+            <ul>
+                <li><a href="/inicio">Home</a></li>
+                <li><a href="/Doacoes/Cartao">Doações</a></li>
+                <li><a class="selected_nav">Pets</a></li>
+                <li><a href="/sobrenos">Sobre Nós</a></li>
+                <li><a href="/contato">Contato</a></li>
+                <li><a href="/noticias">Notícias e Dicas</a></li>
+                <div class="nav_buttons">
+                    <a href="../Login/pag5.html"><button class="login ">Login</button></a>
+                    <a href="../Cadastro/cadastro.html"><Button class="cadastro ">Cadastre-se</Button></a>
+                </div>
+            </ul>
+        </header>
+        <div class="mais">
+            <aside class="filtros">
+                <div class="ama">
+                    <p>Filtro</p>
+                </div>
+                <div class="azul">
+                    <a href="/pesquisa/cachorro">Cães</a>
+                    <hr>
+                    <a href="/pesquisa/gato">Gatos</a>
+                    <hr>
+                    <a href="/pesquisa/passaro">Pássaros</a>
+                </div>
+            </aside>
+            <section class="imagens">
+                <% for(var i = 0; i < pets.length; i++) { %>
+                <a href="/pets/<%= pets[i]._id %>"><img src="http://localhost:8081/<%=pets[i].fileName%>" alt=""></a>
+                <% } %>
+            </section>
+
+
+        </div>
+        <div class="hamburger-menu">
+            <input id="menu__toggle" type="checkbox" />
+            <label class="menu__btn" for="menu__toggle">
+                  <span></span>
+                </label>
+
+            <ul class="menu__box">
+                <li><a class="menu__item" href="../index.html">Home</a></li>
+                <li><a class="menu__item" href="../Doações/cartão/index.html">Doações</a></li>
+                <li><a class="menu__item" href="">Pets</a></li>
+                <li><a class="menu__item" href="../Sobre nós/index.html">Sobre Nós</a></li>
+                <li><a class="menu__item" href="../Contato/contato.html">Contato</a></li>
+                <li><a class="menu__item" href="../Noticias e dicas/noticias/index.html">Notícias e Dicas</a></li>
+                <li>
+                    <div class="mob-logo"><img src="../logo.png" alt=""></div>
+                </li>
+            </ul>
+            <div class="menu_shadow"></div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

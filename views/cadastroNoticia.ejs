@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Noticia</title>
+</head>
+<body>
+    <form action="/addNoticia" method="post" enctype="multipart/form-data">
+        <h1>Titulo da noticia</h1>
+        <input type="text" name="titulo">
+        <h1>Conteudo</h1>
+        <textarea name="conteudo" cols="30" rows="10"></textarea>
+        <h2>Insira a foto</h2>
+        <input type="file" name="file">
+        <button type="submit">ADD</button>
+    </form>
+</body>
+</html>
